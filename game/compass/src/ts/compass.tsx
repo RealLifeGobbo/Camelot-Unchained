@@ -24,14 +24,14 @@ class Compass extends React.Component<CompassProps, CompassState> {
   }
 
   angleToPercentage = (facing: number, angle: number): number => {
-    let diff: number = angle - facing;
+    let diff: number = angle - (facing % 360);
     const fit = 0.75;
     const half = 50;
     if (angle >= facing) {
       return half - diff * fit;
     } else {
-      const d2: number = facing - 360 - angle;
-      diff = facing - angle;
+      const d2: number = (facing % 360) - 360 - angle;
+      diff = (facing % 360) - angle;
       return Math.abs(d2) < diff ? half + d2 * fit : half + diff * fit;
     }
   }
@@ -69,6 +69,14 @@ class Compass extends React.Component<CompassProps, CompassState> {
     return (
       <div className="compass">
         <div className="cardinal-direction">
+          <h1 className="cardinal" style={this.position(facing, -360) }>E</h1>
+          <h1 className="cardinal dot" style={this.position(facing, -315) }>.</h1>
+          <h1 className="cardinal" style={this.position(facing, -270) }>N</h1>
+          <h1 className="cardinal dot" style={this.position(facing, -225) }>.</h1>
+          <h1 className="cardinal" style={this.position(facing, -180) }>W</h1>
+          <h1 className="cardinal dot" style={this.position(facing, -135) }>.</h1>
+          <h1 className="cardinal" style={this.position(facing, -90) }>S</h1>
+          <h1 className="cardinal dot" style={this.position(facing, -45) }>.</h1>
           <h1 className="cardinal" style={this.position(facing, 0) }>E</h1>
           <h1 className="cardinal dot" style={this.position(facing, 45) }>.</h1>
           <h1 className="cardinal" style={this.position(facing, 90) }>N</h1>
